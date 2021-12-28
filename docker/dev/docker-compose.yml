@@ -1,0 +1,50 @@
+version: '3'
+services:
+  prisma-typegraphql:
+    container_name: prisma-typegraphql
+    volumes:
+      - ../../:/app:z
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    env_file: ../../.env
+    ports:
+      - 3500:3500
+    networks:
+      - prisma-tql-network
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-typegraphql
+    image: postgres
+    env_file: ../../.env
+    volumes:
+      - postgres-typegraphql:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - prisma-tql-network
+
+  pgadmin:
+    container_name: pgadmin-typegraphql
+    image: dpage/pgadmin4
+    env_file: ../../.env
+    volumes:
+      - pgadmin-typegraphql:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    restart: always
+    networks:
+      - prisma-tql-network
+    depends_on:
+      - postgres
+
+networks:
+  prisma-tql-network:
+    driver: bridge
+
+volumes:
+  postgres-typegraphql:
+  pgadmin-typegraphql:

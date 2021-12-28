@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@tql/*": ["prisma/generated/*"]
+    },
+    "outDir": "dist",
+    "rootDir": ".",
+    "lib": ["esnext"],
+    "strict": true,
+    "target": "ES5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "prisma"]
+}
